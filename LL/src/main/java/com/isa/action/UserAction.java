@@ -1,5 +1,8 @@
-package com.is.action;
+package com.isa.action;
 
+import com.isa.service.IUserService;
+import com.isa.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -7,16 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserAction {
+    @Autowired
+    IUserService userService;
     @RequestMapping("/login.do")
     @ResponseBody
     public String login(String uname,String upwd) {
         //System.out.println(uname+","+upwd);
         /*硬编码
          */
-        if(uname.equals("admin")&&upwd.equals("123456"))
-            return "success";
-        else
-            return "fault";
+        IUserService userService=new UserServiceImpl();
+        //从那边拿过来
+        String str=userService.login(uname,upwd);
+        return str;
 
     }
 
@@ -26,8 +31,8 @@ public class UserAction {
         //System.out.println(uname+","+upwd);
         /*硬编码
          */
-        System.out.println(email);
-        boolean temp=false;
+
+        boolean temp=userService.register(uname,upwd,email);
         if(temp)
             return "success";
         else

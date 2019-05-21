@@ -38,9 +38,7 @@
             if(vcode.toLowerCase()!=code.toLowerCase()){
                 layer.tips("验证码有误","#vcode",{time:3000,tips:[2,"#FF0000"]});
             }
-            else{
-                window.location.href="admin.html";
-            }
+
             //使用ajax异步发送请求
             $.ajax({
                 url:"user/login.do",
@@ -49,6 +47,7 @@
                 method:"post",
                 success:function (result) {
                     layer.alert("登陆"+result);
+                    window.location.href("admin.html");
                 },
                 error:function () {
                     layer.msg("登录请求失败");
@@ -99,6 +98,8 @@
                 method:"post",
                 success:function (result) {
                     layer.alert("注册"+result);
+                    window.location.href("login.html");
+
                 },
                 error:function () {
                     layer.msg("注册请求失败");
